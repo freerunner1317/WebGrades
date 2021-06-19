@@ -1,0 +1,21 @@
+.grade{
+	width: 100%;
+	text-align: center;
+	margin-top: 50px;
+}
+.table {
+	width: 100%;
+	border-collapse: collapse; 
+	margin-bottom: 20px;
+	border: 1px solid #b59191;	
+}
+.table th {
+	background: #fcbbbb;
+	border: 1px solid #b59191;
+	font-weight: bold;
+	padding: 5px;	
+}
+.table td {
+	border: 1px solid #b59191;
+	padding: 5px;
+}
