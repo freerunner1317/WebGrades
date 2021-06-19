@@ -63,17 +63,15 @@
 	$result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
 
 	foreach ($result as $key => $value) {
-		$grades_st[$key][0] = $value['first_name'];
-		$grades_st[$key][1] = $value['second_name'];		
-		$grades_st[$key][2] = $value['grade'];
-		$grades_st[$key][3] = $value['data'];
-		$subject = $value['name'];
+		$grades_st[$key][0] = $value['name'];
+		$grades_st[$key][1] = $value['grade'];		
+		$grades_st[$key][2] = $value['data'];
 	}  
 ?>
 
 
 <body> 
-	<?echo "Результаты по: $subject $student группы";?>
+	<?echo "Результаты по: группы";?>
 	<table class='table'>
 		<thead id="tHead">
 			<tr>
