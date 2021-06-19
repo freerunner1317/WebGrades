@@ -100,9 +100,11 @@
 						$students_unique = array_unique($student[0]);
 					    foreach ($students_unique as $key => $value) {
 					    	echo "<option value='$student[1][$key]'>$value</option>";	
+
 					    }	   	 		   		
 					?>
 			</select>
+
 			Начало
 			<input type="data" name="date_start" required>
 			Конец

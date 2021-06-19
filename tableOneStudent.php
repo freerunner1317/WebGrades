@@ -41,6 +41,7 @@
 	$link = mysqli_connect('localhost', 'root', 'root','libraryweb') 
 	    or die("Ошибка " . mysqli_error($link));
 
+	var_dump( $student);
 
 	if(isset($_GET['sort'])){
 		$sorting = "ORDER BY     
@@ -54,7 +55,7 @@
 			  JOIN  
 			  		libraryweb.subjects
 	          ON 
-	          		subjects.id = grades.id_subject AND grades.id_student = $student
+	          		subjects.id = grades.id_subject AND grades.id_student = 1
 	          		$sorting";
 
 	$nextSort = (($_GET['sort'] == "ASC") ? "DESC" : "ASC");
