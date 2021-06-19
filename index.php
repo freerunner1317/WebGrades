@@ -28,9 +28,9 @@
 					$students[$key][2] = $value['second_name'];
 					$students[$key][3] = $value['group'];
 					$group[$key] = $value['group'];
-					$student[$key] = $value['first_name']." ".$value['second_name'];
+					$student[0][$key] = $value['first_name']." ".$value['second_name'];
+					$student[1][$key] = $value['id'];
 				}
-
 
 			?>
 			<select name="student">	
@@ -97,16 +97,16 @@
 		<div class="grade">
 			<select name="student">	
 					<?										
-						$students_unique = array_unique($student);
+						$students_unique = array_unique($student[0]);
 					    foreach ($students_unique as $key => $value) {
-					    	echo "<option value='$value'>$value</option>";	
+					    	echo "<option value='$student[1][$key]'>$value</option>";	
 					    }	   	 		   		
 					?>
 			</select>
 			Начало
-			<input type="data" name="date" required>
+			<input type="data" name="date_start" required>
 			Конец
-			<input type="data" name="date" required>
+			<input type="data" name="date_end" required>
 			<p><input type="submit" value="Показать оценки"></p>
 		</div>
 

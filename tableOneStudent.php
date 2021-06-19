@@ -7,20 +7,20 @@
 	   $student = $_COOKIE['student'];	
 	}
 
-	if (isset($_GET['subject'])){
-	   setcookie("subject", $_GET['subject'], time()+600);
-	   $subject = $_GET['subject'];	
+	if (isset($_GET['data_start'])){
+	   setcookie("data_start", $_GET['data_start'], time()+600);
+	   $data_start = $_GET['data_start'];	
 
 	}else{
-	   $subject = $_COOKIE['subject'];	
+	   $data_start = $_COOKIE['data_start'];	
 	}
 
-	if (isset($_GET['colum'])){
-	   setcookie("colum", $_GET['colum'], time()+600);
-	   $colum = $_GET['colum'];	
+	if (isset($_GET['data_end'])){
+	   setcookie("data_end", $_GET['data_end'], time()+600);
+	   $data_end = $_GET['data_end'];	
 
 	}else{
-	   $colum = $_COOKIE['colum'];	
+	   $data_end = $_COOKIE['data_end'];	
 	}
 ?>
 
@@ -32,12 +32,11 @@
 	<link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <?
-	$columsName = array('Имя','Фамилия','Оценка', 'Дата');
+	$columsName = array('Предмет','Оценки','Дата');
 	$numberToColum = array(
-							'0' => 'students.first_name',
-							'1' => 'students.second_name',
-							'2'	=> 'grades.grade',
-							'3' => 'grades.data');
+							'0' => 'subjects.name',
+							'1' => 'grades.grade',
+							'2'	=> 'grades.data');
 
 	$link = mysqli_connect('localhost', 'root', 'root','libraryweb') 
 	    or die("Ошибка " . mysqli_error($link));
@@ -48,18 +47,15 @@
 					{$numberToColum[$colum]} {$_GET['sort']}";
 	}
 
-
-	$query ="SELECT students.first_name, students.second_name, 
+	$query = "SELECT  
 					subjects.name, grades.grade, grades.data
-			FROM 
-					libraryweb.grades
-			JOIN  
-					libraryweb.students
-				ON 
-					students.group = $student AND grades.id_student = students.id
-			JOIN  libraryweb.subjects
-				ON subjects.id = $subject AND grades.id_subject = subjects.id
-			$sorting";
+			  FROM 
+			  		libraryweb.grades
+			  JOIN  
+			  		libraryweb.subjects
+	          ON 
+	          		subjects.id = grades.id_subject AND grades.id_student = $student
+	          		$sorting";
 
 	$nextSort = (($_GET['sort'] == "ASC") ? "DESC" : "ASC");
 					
