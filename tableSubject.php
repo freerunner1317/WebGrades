@@ -59,12 +59,12 @@
 	$query ="SELECT students.first_name, students.second_name, 
 					subjects.name, grades.grade, grades.data
 			FROM 
-					libraryweb.grades
+					grades
 			JOIN  
-					libraryweb.students
+					students
 				ON 
 					students.group = $student AND grades.id_student = students.id
-			JOIN  libraryweb.subjects
+			JOIN  subjects
 				ON subjects.id = $subject AND grades.id_subject = subjects.id
 			$sorting";
 

@@ -69,9 +69,9 @@
 	$query = "SELECT  
 					subjects.name, grades.grade, grades.data
 			  FROM 
-			  		libraryweb.grades
+			  		grades
 			  JOIN  
-			  		libraryweb.subjects
+			  		subjects
 	          ON 
 	          		subjects.id = grades.id_subject AND 
 	          		grades.id_student = $studentAll[0] AND
