@@ -1,26 +1,42 @@
 <?	
 	if (isset($_GET['student'])){
-	   setcookie("student", $_GET['student'], time()+600);
+	   setcookie("student", $_GET['student'], time()+9000);
 	   $student = $_GET['student'];	
 
 	}else{
 	   $student = $_COOKIE['student'];	
 	}
 
-	if (isset($_GET['data_start'])){
-	   setcookie("data_start", $_GET['data_start'], time()+600);
-	   $data_start = $_GET['data_start'];	
+	if (isset($_GET['colum'])){
+		setcookie("colum", $_GET['colum'], time()+9000);
+	   $colum = $_GET['colum'];	
 
 	}else{
-	   $data_start = $_COOKIE['data_start'];	
+	   $colum = $_COOKIE['colum'];	
 	}
 
-	if (isset($_GET['data_end'])){
-	   setcookie("data_end", $_GET['data_end'], time()+600);
-	   $data_end = $_GET['data_end'];	
+	if (isset($_GET['sort'])){
+		setcookie("sort", $_GET['sort'], time()+9000);
+	   $sort = $_GET['sort'];	
 
 	}else{
-	   $data_end = $_COOKIE['data_end'];	
+	   $sort = $_COOKIE['sort'];	
+	}
+
+	if (isset($_GET['date_start'])){
+	   setcookie("date_start", $_GET['date_start'], time()+9000);
+	   $date_start = $_GET['date_start'];	
+
+	}else{
+	   $date_start = $_COOKIE['date_start'];	
+	}
+
+	if (isset($_GET['date_end'])){
+	   setcookie("date_end", $_GET['date_end'], time()+9000);
+	   $date_end = $_GET['date_end'];	
+
+	}else{
+	   $date_end = $_COOKIE['date_end'];	
 	}
 ?>
 
@@ -41,12 +57,14 @@
 	$link = mysqli_connect('localhost', 'root', 'root','libraryweb') 
 	    or die("Ошибка " . mysqli_error($link));
 
-	var_dump( $student);
+	//var_dump($sort);
 
 	if(isset($_GET['sort'])){
 		$sorting = "ORDER BY     
 					{$numberToColum[$colum]} {$_GET['sort']}";
 	}
+
+	$studentAll = explode(';', $student);
 
 	$query = "SELECT  
 					subjects.name, grades.grade, grades.data
@@ -55,12 +73,15 @@
 			  JOIN  
 			  		libraryweb.subjects
 	          ON 
-	          		subjects.id = grades.id_subject AND grades.id_student = 1
+	          		subjects.id = grades.id_subject AND 
+	          		grades.id_student = $studentAll[0] AND
+	          		grades.data < '$date_end' AND 
+	          		grades.data > '$date_start'
 	          		$sorting";
 
 	$nextSort = (($_GET['sort'] == "ASC") ? "DESC" : "ASC");
 					
-	echo $query;				
+	//echo $query;				
 	$result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
 
 	foreach ($result as $key => $value) {
@@ -72,13 +93,20 @@
 
 
 <body> 
-	<?echo "Результаты по: группы";?>
+	<?
+
+
+	echo "Результаты по: $studentAll[1] для промежутка с $date_start по $date_end";?>
 	<table class='table'>
 		<thead id="tHead">
 			<tr>
 				<?
 					foreach ($columsName as $key => $value) {
-						echo "<th><a href='tableSubject.php?colum=$key&sort=$nextSort'>$value</a></th>";
+						echo "<th>";
+						echo "<a href='tableOneStudent.php?colum=$key&sort=$nextSort'>$value ";
+						if ($key == $colum)							
+							echo (($sort == 'ASC')? '🠓':'🠑');
+						echo "</a></th>";
 					}
 				?>			
 			</tr>

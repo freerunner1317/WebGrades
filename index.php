@@ -99,7 +99,7 @@
 					<?										
 						$students_unique = array_unique($student[0]);
 					    foreach ($students_unique as $key => $value) {
-					    	echo "<option value='$student[1][$key]'>$value</option>";	
+					    	echo "<option value='{$student[1][$key]};$value'>$value</option>";	
 
 					    }	   	 		   		
 					?>

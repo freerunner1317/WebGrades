@@ -1,6 +1,6 @@
 <?	
 	if (isset($_GET['student'])){
-	   setcookie("student", $_GET['student'], time()+600);
+	   setcookie("student", $_GET['student'], time()+9000);
 	   $student = $_GET['student'];	
 
 	}else{
@@ -8,7 +8,7 @@
 	}
 
 	if (isset($_GET['subject'])){
-	   setcookie("subject", $_GET['subject'], time()+600);
+	   setcookie("subject", $_GET['subject'], time()+9000);
 	   $subject = $_GET['subject'];	
 
 	}else{
@@ -16,11 +16,18 @@
 	}
 
 	if (isset($_GET['colum'])){
-	   setcookie("colum", $_GET['colum'], time()+600);
+	   setcookie("colum", $_GET['colum'], time()+9000);
 	   $colum = $_GET['colum'];	
 
 	}else{
 	   $colum = $_COOKIE['colum'];	
+	}
+	if (isset($_GET['sortOne'])){
+		setcookie("sortOne", $_GET['sortOne'], time()+9000);
+	   $sortOne = $_GET['sortOne'];	
+
+	}else{
+	   $sort = $_COOKIE['sort'];	
 	}
 ?>
 
@@ -43,9 +50,9 @@
 	    or die("Ошибка " . mysqli_error($link));
 
 
-	if(isset($_GET['sort'])){
+	if(isset($_GET['sortOne'])){
 		$sorting = "ORDER BY     
-					{$numberToColum[$colum]} {$_GET['sort']}";
+					{$numberToColum[$colum]} {$_GET['sortOne']}";
 	}
 
 
@@ -61,9 +68,9 @@
 				ON subjects.id = $subject AND grades.id_subject = subjects.id
 			$sorting";
 
-	$nextSort = (($_GET['sort'] == "ASC") ? "DESC" : "ASC");
+	$nextSort = (($_GET['sortOne'] == "ASC") ? "DESC" : "ASC");
 					
-	//echo $query;				
+	echo $sortOne;				
 	$result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
 
 	foreach ($result as $key => $value) {
@@ -83,7 +90,10 @@
 			<tr>
 				<?
 					foreach ($columsName as $key => $value) {
-						echo "<th><a href='tableSubject.php?colum=$key&sort=$nextSort'>$value</a></th>";
+						echo "<th><a href='tableSubject.php?colum=$key&sortOne=$nextSort'>$value  ";
+						if (($key == $colum)&&($sortOne != NULL))				
+							echo (($sortOne == 'ASC')? '🠓':'🠑');
+						echo "</a></th>";
 					}
 				?>			
 			</tr>
