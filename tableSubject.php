@@ -70,7 +70,7 @@
 
 	$nextSort = (($_GET['sortOne'] == "ASC") ? "DESC" : "ASC");
 					
-	echo $query;				
+	//echo $query;				
 	$result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
 
 	foreach ($result as $key => $value) {
