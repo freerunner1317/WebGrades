@@ -59,9 +59,9 @@
 
 	//var_dump($sort);
 
-	if(isset($_GET['sort'])){
+	if(isset($sort)){
 		$sorting = "ORDER BY     
-					{$numberToColum[$colum]} {$_GET['sort']}";
+					{$numberToColum[$colum]} {$sort}";
 	}
 
 	$studentAll = explode(';', $student);

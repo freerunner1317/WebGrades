@@ -50,9 +50,9 @@
 	    or die("Ошибка " . mysqli_error($link));
 	$subjectData = explode(',', $subjectOne);
 
-	if(isset($_GET['sortOne'])){
+	if(isset($sortOne)){
 		$sorting = "ORDER BY     
-					{$numberToColum[$columOne]} {$_GET['sortOne']}";
+					{$numberToColum[$columOne]} {$sortOne}";
 	}
 
 
