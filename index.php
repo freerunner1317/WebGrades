@@ -72,15 +72,15 @@
 	<form method="GET" action="tableSubject.php">
 		<div class="grade">
 			<p style="text-align: center;">Формы на вывод в таблицу</p>
-			<select name="subject">	
+			<select name="subjectOne">	
 					<?
 					    foreach ($subjects as $key => $value) {
-					    	echo "<option value='$value[0]'>$value[1]</option>";	
+					    	echo "<option value='$value[0],$value[1]'>$value[1]</option>";	
 					    }	   	 		   		
 					?>
 			</select>
 
-			<select name="student">	
+			<select name="studentOne">	
 					<?										
 						$students_unique = array_unique($group);
 					    foreach ($students_unique as $key => $value) {

@@ -1,6 +1,6 @@
 <?	
 	if (isset($_GET['student'])){
-	   setcookie("student", $_GET['student'], time()+9000);
+	   setcookie("student", $_GET['student'], time()+1000);
 	   $student = $_GET['student'];	
 
 	}else{
@@ -8,7 +8,7 @@
 	}
 
 	if (isset($_GET['colum'])){
-		setcookie("colum", $_GET['colum'], time()+9000);
+		setcookie("colum", $_GET['colum'], time()+1000);
 	   $colum = $_GET['colum'];	
 
 	}else{
@@ -16,7 +16,7 @@
 	}
 
 	if (isset($_GET['sort'])){
-		setcookie("sort", $_GET['sort'], time()+9000);
+		setcookie("sort", $_GET['sort'], time()+1000);
 	   $sort = $_GET['sort'];	
 
 	}else{
@@ -24,7 +24,7 @@
 	}
 
 	if (isset($_GET['date_start'])){
-	   setcookie("date_start", $_GET['date_start'], time()+9000);
+	   setcookie("date_start", $_GET['date_start'], time()+1000);
 	   $date_start = $_GET['date_start'];	
 
 	}else{
@@ -32,7 +32,7 @@
 	}
 
 	if (isset($_GET['date_end'])){
-	   setcookie("date_end", $_GET['date_end'], time()+9000);
+	   setcookie("date_end", $_GET['date_end'], time()+1000);
 	   $date_end = $_GET['date_end'];	
 
 	}else{

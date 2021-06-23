@@ -1,33 +1,33 @@
 <?	
-	if (isset($_GET['student'])){
-	   setcookie("student", $_GET['student'], time()+9000);
-	   $student = $_GET['student'];	
+	if (isset($_GET['studentOne'])){
+	   setcookie("studentOne", $_GET['studentOne'], time()+1000);
+	   $studentOne = $_GET['studentOne'];	
 
 	}else{
-	   $student = $_COOKIE['student'];	
+	   $studentOne = $_COOKIE['studentOne'];	
 	}
 
-	if (isset($_GET['subject'])){
-	   setcookie("subject", $_GET['subject'], time()+9000);
-	   $subject = $_GET['subject'];	
+	if (isset($_GET['subjectOne'])){
+	   setcookie("subjectOne", $_GET['subjectOne'], time()+1000);
+	   $subjectOne = $_GET['subjectOne'];	
 
 	}else{
-	   $subject = $_COOKIE['subject'];	
+	   $subjectOne = $_COOKIE['subjectOne'];	
 	}
 
-	if (isset($_GET['colum'])){
-	   setcookie("colum", $_GET['colum'], time()+9000);
-	   $colum = $_GET['colum'];	
+	if (isset($_GET['columOne'])){
+	   setcookie("columOne", $_GET['columOne'], time()+1000);
+	   $columOne = $_GET['columOne'];	
 
 	}else{
-	   $colum = $_COOKIE['colum'];	
+	   $columOne = $_COOKIE['columOne'];	
 	}
 	if (isset($_GET['sortOne'])){
-		setcookie("sortOne", $_GET['sortOne'], time()+9000);
+		setcookie("sortOne", $_GET['sortOne'], time()+1000);
 	   $sortOne = $_GET['sortOne'];	
 
 	}else{
-	   $sort = $_COOKIE['sort'];	
+	   $sortOne = $_COOKIE['sortOne'];	
 	}
 ?>
 
@@ -48,11 +48,11 @@
 
 	$link = mysqli_connect('localhost', 'root', 'root','libraryweb') 
 	    or die("Ошибка " . mysqli_error($link));
-
+	$subjectData = explode(',', $subjectOne);
 
 	if(isset($_GET['sortOne'])){
 		$sorting = "ORDER BY     
-					{$numberToColum[$colum]} {$_GET['sortOne']}";
+					{$numberToColum[$columOne]} {$_GET['sortOne']}";
 	}
 
 
@@ -63,14 +63,14 @@
 			JOIN  
 					students
 				ON 
-					students.group = $student AND grades.id_student = students.id
+					students.group = $studentOne AND grades.id_student = students.id
 			JOIN  subjects
-				ON subjects.id = $subject AND grades.id_subject = subjects.id
+				ON subjects.id = $subjectData[0] AND grades.id_subject = subjects.id
 			$sorting";
 
 	$nextSort = (($_GET['sortOne'] == "ASC") ? "DESC" : "ASC");
 					
-	echo $sortOne;				
+	echo $query;				
 	$result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
 
 	foreach ($result as $key => $value) {
@@ -84,14 +84,14 @@
 
 
 <body> 
-	<?echo "Результаты по: $subject $student группы";?>
+	<?echo "Результаты по: $subjectData[1] $studentOne группы";?>
 	<table class='table'>
 		<thead id="tHead">
 			<tr>
 				<?
 					foreach ($columsName as $key => $value) {
-						echo "<th><a href='tableSubject.php?colum=$key&sortOne=$nextSort'>$value  ";
-						if (($key == $colum)&&($sortOne != NULL))				
+						echo "<th><a href='tableSubject.php?columOne=$key&sortOne=$nextSort'>$value  ";
+						if (($key == $columOne)&&($sortOne != NULL))				
 							echo (($sortOne == 'ASC')? '🠓':'🠑');
 						echo "</a></th>";
 					}
